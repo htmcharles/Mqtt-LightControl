@@ -1,8 +1,56 @@
-# MQTT Light Control Web Application
+# MQTT Light Control Project
 
-## Overview
+This project implements a web-based light control system using MQTT protocol. It consists of a web interface to control a light and a Python script that simulates an ESP8266 IoT device.
 
-The MQTT Light Control project simulates a simple light control system using the MQTT protocol. Users can control a light (simulated by an ESP8266 device) through a web interface, sending MQTT messages to turn the light on or off.
+## Components
+
+1. **Web Interface (index.html)**
+   - A modern, responsive web interface with ON/OFF controls
+   - Real-time status updates
+   - Dark mode support
+   - MQTT communication via WebSocket
+
+2. **IoT Device Simulation (light_simulation.py)**
+   - Python script simulating an ESP8266 device
+   - Subscribes to MQTT messages
+   - Prints light status changes
+
+## Setup Instructions
+
+1. Install required Python packages:
+   ```bash
+   pip install paho-mqtt
+   ```
+
+2. Run the Python simulation script:
+   ```bash
+   python light_simulation.py
+   ```
+
+3. Open `index.html` in a web browser
+
+## Testing
+
+1. The Python script will connect to the MQTT broker and wait for messages
+2. Open the web interface in your browser
+3. Click the ON/OFF buttons to control the light
+4. Observe the status changes in both the web interface and Python console
+
+## MQTT Details
+
+- Broker: broker.hivemq.com
+- Port: 1883 (Python), 8000 (WebSocket)
+- Topic: /student_group/light_control
+- Messages: "ON" or "OFF"
+
+## Technologies Used
+
+- HTML5
+- CSS3
+- JavaScript
+- MQTT.js
+- Python
+- paho-mqtt
 
 ## Features
 
@@ -25,7 +73,7 @@ The MQTT Light Control project simulates a simple light control system using the
    git clone https://github.com/sm-junior0/Mqtt-LightControl.git
    ```
 
-2. **Install Dependencies**:    
+2. **Install Dependencies**:
    Make sure to install the required Python library:
    ```bash
    pip install paho-mqtt
