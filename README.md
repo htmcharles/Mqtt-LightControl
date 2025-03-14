@@ -1,121 +1,164 @@
 # MQTT Light Control Project
 
-This project implements a web-based light control system using MQTT protocol. It consists of a web interface to control a light and a Python script that simulates an ESP8266 IoT device.
+A simple IoT project that demonstrates MQTT communication between a web interface and a simulated IoT device. Control a virtual light bulb from your browser and see real-time updates in a Python terminal.
 
-## Components
+![MQTT Light Control](https://i.imgur.com/example-image.jpg)
 
-1. **Web Interface (index.html)**
-   - A modern, responsive web interface with ON/OFF controls
-   - Real-time status updates
-   - Dark mode support
-   - MQTT communication via WebSocket
+## Project Overview
 
-2. **IoT Device Simulation (light_simulation.py)**
-   - Python script simulating an ESP8266 device
-   - Subscribes to MQTT messages
-   - Prints light status changes
+This project consists of two main components:
 
-## Setup Instructions
+1. **Web Interface (index.html)**: A browser-based UI with ON/OFF buttons to control a virtual light
+2. **Simulated IoT Device (light_simulation.py)**: A Python script that simulates an IoT device (like an ESP8266)
 
-1. Install required Python packages:
-   ```bash
-   pip install paho-mqtt
-   ```
-
-2. Run the Python simulation script:
-   ```bash
-   python light_simulation.py
-   ```
-
-3. Open `index.html` in a web browser
-
-## Testing
-
-1. The Python script will connect to the MQTT broker and wait for messages
-2. Open the web interface in your browser
-3. Click the ON/OFF buttons to control the light
-4. Observe the status changes in both the web interface and Python console
-
-## MQTT Details
-
-- Broker: broker.hivemq.com
-- Port: 1883 (Python), 8000 (WebSocket)
-- Topic: /student_group/light_control
-- Messages: "ON" or "OFF"
-
-## Technologies Used
-
-- HTML5
-- CSS3
-- JavaScript
-- MQTT.js
-- Python
-- paho-mqtt
+Both components communicate via MQTT (Message Queuing Telemetry Transport), a lightweight messaging protocol designed for IoT applications.
 
 ## Features
 
-- **Real-time Control**: Control the light in real-time using MQTT messages.
-- **User-Friendly Interface**: A web-based interface for easy interaction.
-- **Dark Mode**: Toggle between light and dark themes for better visibility.
-- **Connection Status**: Visual indicators for connection status to the MQTT broker.
+- Modern, responsive web interface with dark mode support
+- Real-time communication between web browser and Python script
+- Visual feedback with animated light bulb
+- Connection status indicators
+- Detailed error handling and reporting
 
-## How to Run
+## Prerequisites
 
-### Prerequisites
+Before running this project, you need:
 
-- Python 3.x installed on your machine.
-- Internet connection for accessing the public MQTT broker.
+1. **Python 3.6+** with the following packages:
+   - `paho-mqtt` (MQTT client for Python)
 
-### Steps
+2. **Web Browser** (Chrome, Firefox, Edge, etc.)
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/sm-junior0/Mqtt-LightControl.git
+3. **HiveMQ Account** (Optional - already configured with test account)
+   - The project is pre-configured with test credentials
+   - For your own setup, create an account at [HiveMQ Cloud](https://www.hivemq.com/cloud/)
+
+## Installation
+
+1. **Clone the repository**:
+   ```
+   git clone https://github.com/yourusername/mqtt-light-control.git
+   cd mqtt-light-control
    ```
 
-2. **Install Dependencies**:
-   Make sure to install the required Python library:
-   ```bash
+2. **Install Python dependencies**:
+   ```
    pip install paho-mqtt
    ```
 
-3. **Run the Simulation**:
-   Execute the `light_simulation.py` script to simulate the IoT device:
-   ```bash
+## Running the Project
+
+### Step 1: Start the Simulated IoT Device
+
+1. Open a terminal/command prompt
+2. Navigate to the project directory
+3. Run the Python script:
+   ```
    python light_simulation.py
    ```
+4. You should see:
+   ```
+   Connecting to broker 54d38e6010684c31a4d8ac17a897978b.s1.eu.hivemq.cloud on port 8884...
+   Waiting for messages on topic /charles/light_control...
+   ```
 
-4. **Open the Web Interface**:
-   Open `index.html` in your web browser to control the light.
+### Step 2: Open the Web Interface
 
-## MQTT Broker
+1. Open the `index.html` file in your web browser:
+   - Double-click the file, or
+   - Drag and drop it into your browser, or
+   - Use a local server if you have one
 
-The application connects to a public MQTT broker at `ws://broker.hivemq.com:8000/mqtt`. You can change the broker URL in the JavaScript code if you want to use a different broker.
+2. You should see the light control interface with:
+   - A light bulb visualization
+   - ON and OFF buttons
+   - Connection status indicator
 
-## Dependencies
+### Step 3: Control the Light
 
-- **Python Libraries**:
-  - `paho-mqtt`: A Python library for MQTT.
+1. Click the "Turn ON" button in the web interface
+   - The light bulb in the browser will turn on
+   - The Python terminal will show: "💡 Light is TURNED ON"
 
-- **Web Technologies**:
-  - HTML
-  - CSS
-  - JavaScript
-  - MQTT.js (for MQTT protocol)
-  - Bootstrap (for styling)
-  - Font Awesome (for icons)
+2. Click the "Turn OFF" button in the web interface
+   - The light bulb in the browser will turn off
+   - The Python terminal will show: "💡 Light is TURNED OFF"
 
-## Contributing
+## How It Works
 
-Contributions are welcome! If you have suggestions for improvements or want to report issues, please feel free to submit a pull request or open an issue.
+### Web Interface (index.html)
+
+The web interface uses:
+- MQTT.js to connect to the HiveMQ broker via WebSockets
+- Bootstrap and custom CSS for styling
+- JavaScript for interactivity and MQTT communication
+
+When you click a button:
+1. The browser publishes an "ON" or "OFF" message to the topic `/charles/light_control`
+2. The interface updates to show the current state
+
+### Simulated IoT Device (light_simulation.py)
+
+The Python script:
+1. Connects to the same HiveMQ broker using the paho-mqtt library
+2. Subscribes to the `/charles/light_control` topic
+3. Prints messages when it receives "ON" or "OFF" commands
+
+## Troubleshooting
+
+### Connection Issues
+
+If you see "Authorization failed" or connection errors:
+
+1. **Check Internet Connection**:
+   - Ensure you have a stable internet connection
+
+2. **Firewall Settings**:
+   - Make sure your firewall allows WebSocket connections on port 8884
+
+3. **Browser Console**:
+   - Open your browser's developer console (F12) to see detailed error messages
+
+### Python Script Issues
+
+If the Python script fails to connect:
+
+1. **Check Dependencies**:
+   - Ensure paho-mqtt is installed: `pip install paho-mqtt`
+
+2. **TLS/SSL Issues**:
+   - Make sure your Python environment supports TLS connections
+
+## Customization
+
+### Changing MQTT Broker
+
+To use your own MQTT broker:
+
+1. Edit `light_simulation.py`:
+   - Update the `BROKER`, `PORT`, `USERNAME`, and `PASSWORD` constants
+
+2. Edit `index.html`:
+   - Find the MQTT connection section and update the connection URL and credentials
+
+### Changing the Topic
+
+To use a different topic:
+
+1. Edit `light_simulation.py`:
+   - Update the `TOPIC` constant
+
+2. Edit `index.html`:
+   - Update the `topic` variable
+   - Update the topic check in the message handler
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
 
-- [MQTT.js](https://github.com/mqttjs/MQTT.js) for the MQTT client implementation.
-- [Bootstrap](https://getbootstrap.com/) for responsive design.
-- [Font Awesome](https://fontawesome.com/) for icons.
-- [Paho MQTT](https://www.eclipse.org/paho/) for the Python MQTT client library.
-
----
-
-This version of the README retains the original structure and content while ensuring clarity and simplicity. No additional features or complexities have been added. Let me know if you need further adjustments!
+- HiveMQ for providing a free MQTT broker
+- MQTT.js for the browser-based MQTT client
+- Paho for the Python MQTT client
