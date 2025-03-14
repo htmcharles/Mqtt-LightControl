@@ -2,7 +2,10 @@
 
 A simple IoT project that demonstrates MQTT communication between a web interface and a simulated IoT device. Control a virtual light bulb from your browser and see real-time updates in a Python terminal.
 
-![MQTT Light Control](https://i.imgur.com/example-image.jpg)
+## Screenshot
+
+![MQTT Light Control Interface](image.png)
+
 
 ## Project Overview
 
@@ -155,7 +158,7 @@ To use a different topic:
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+Fell free to clone and use this project.
 
 ## Acknowledgments
 
