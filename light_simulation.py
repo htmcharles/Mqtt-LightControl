@@ -4,14 +4,14 @@ import paho.mqtt.client as mqtt
 def on_message(client, userdata, message):
     msg = message.payload.decode("utf-8")
     if msg == "ON":
-        print("status: bulb is TURNED ON")
+        print(":bulb: Light is TURNED ON")
     elif msg == "OFF":
-        print("status: bulb is TURNED OFF")
+        print(":bulb: Light is TURNED OFF")
 
 # Setup MQTT client
-broker = "broker.hivemq.com"  
-port = 1883  
-topic = "/student_group/light_control"
+broker = "broker.hivemq.com"  # Public MQTT broker (can replace with your own broker)
+port = 1883  # Standard MQTT port
+topic = "/charles/light_control"
 
 # Create an MQTT client instance
 client = mqtt.Client()
